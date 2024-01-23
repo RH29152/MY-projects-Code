@@ -1,0 +1,60 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<iomanip>
+using namespace std;
+ class menuItemType{
+   public:
+string menuItem;
+
+double menuPrice;
+ };
+
+
+int main() {
+    vector<int> v;
+vector<menuItemType> menu={{"Plain Egg", 1.45},
+        {"Bacon and Egg", 2.45},
+        {"Muffin", 0.99},
+        {"French Toast", 1.99},
+        {"Fruit Basket", 2.49},
+        {"Cereal", 0.69},
+        {"Coffee", 0.50},
+        {"Tea", 0.75}};
+cout<<"***** Welcome to Rashid's Restaurant *****"<<endl;
+
+cout<<"******Today menu list is here**********"<<endl;
+for(int i=0;i<menu.size();i++){
+   cout<<menu[i].menuItem<<string(20-(menu[i].menuItem).length(),' ')<<"$"<<menu[i].menuPrice<<endl;
+}
+
+string Item;
+int n;
+double Tax;
+double amount=0.0;
+cout<<"Enter number of items you need: "<<endl;
+cin>>n;
+cin.ignore();
+for(int i=0;i<n;i++){
+cout<<"Enter item name: "<<endl;
+
+getline(cin,Item);
+for(int i=0;i<menu.size();i++){
+    if(menu[i].menuItem==Item){
+amount+=(menu[i].menuPrice);
+v.push_back(i);
+    }
+} }
+Tax=(amount*(5.0/100.0));
+
+cout<<"******Bill is Here***********"<<endl;
+
+for(int i=0;i<v.size();i++){
+    cout<<fixed<<setprecision(2)<<menu[v[i]].menuItem<<"  $"<<menu[v[i]].menuPrice<<endl;
+}
+cout<<"Tax  $"<<Tax<<endl;
+
+cout<<fixed<<setprecision(2)<<"Amount Due $"<<(amount+Tax)<<endl;
+
+    return 0;
+}
