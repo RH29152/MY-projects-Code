@@ -1,0 +1,76 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class warehouse{
+vector<int> codes;
+vector<int> quantities;
+public:
+warehouse(){} //default constructer
+bool done=false;
+ bool more=false;
+void stock(int c , int q){
+    done=false;
+    more=false;
+    for(int i=0;i<codes.size();i++){
+        if(codes[i]==c){quantities[i]+=q;
+        cout<<q<<" more items with code "<<c<<" added, total "<<quantities[i]<<endl;
+         more=true; done=true; break;}
+    }
+    if(!done){//important to note else above can't be used
+        codes.push_back(c);
+        quantities.push_back(q);
+done=true;
+    }
+    if(done && !more){
+        cout<<q<<" items with code "<<c<<" added "<<endl;
+    }
+}
+
+void order(int c,int q){
+    more=false;//important to initilize a global variable to avoid its previous value effect
+    done=false;
+    for(int i=0;i<codes.size();i++){
+        if(codes[i]==c){
+         done=true;
+            if(quantities[i]>q){
+            quantities[i]-=q; cout<<q<<" items delivered with code "<<c<<endl; more=true;   break;}
+            else {cout<<"Requested Quantity is not available."<<endl;}}
+
+             if(done)break;
+    }       
+     if(!done&&!more){
+       cout<<"Code "<<c<<" not found"<<endl;
+    }
+}
+
+void show(int c){
+    done=false;// important.......................
+     for(int i=0;i<codes.size();i++){
+        if(codes[i]==c){cout<<quantities[i]<<" items are stored with code "<<c<<endl; done=true; break;}
+       
+}
+    if(!done){
+         cout<<"Code "<<c<<" not found"<<endl;
+    }
+}
+
+
+
+};
+   int main() {
+warehouse w;
+w.stock(1, 10); // print "10 items with code 1 added"
+w.stock(2, 20); // print "20 items with code 2 added"
+w.stock(3, 30); // print "30 items with code 3 added"
+w.stock(1, 5); // print "5 more items with code 1 added, total 15"
+w.order(1, 3); // print "3 items delivered with code 1"
+w.order(2, 25); // print "the requested quantity is not available"
+w.order(2, 11); // print "11 items delivered with code 2"
+w.order(4, 5); // print "Code 4 not found"
+w.show(1); // print "12 items are stored with code 1"
+w.show(2); // print "9 items are stored with code 2"
+w.show(3); // print "30 items are stored with code 3"
+w.show(4); // print "Code 4 not found"
+return 0;
+}
